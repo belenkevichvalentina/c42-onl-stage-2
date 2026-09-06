@@ -1,4 +1,4 @@
-package com.example.c42onl;
+package com.example.c42onl.homework_24;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
