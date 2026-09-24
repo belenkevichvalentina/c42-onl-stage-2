@@ -37,7 +37,7 @@
             <button type="submit" class="btn btn-primary w-100">Create post</button>
         </form>
     </div>
-
+</div>
 </div>
 </body>
 </html>
