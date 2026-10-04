@@ -1,4 +1,4 @@
-package homework_23;
+package com.example.c42onl.homework_23;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
