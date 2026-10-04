@@ -75,3 +75,17 @@ SELECT table_schema, table_name
 FROM information_schema.tables
 WHERE table_name = 'employees';
 select * from homework_32.employees;
+
+SELECT * FROM homework_32.employees WHERE department_id = 50 AND salary > 4000;
+
+SELECT * FROM homework_32.employees WHERE first_name LIKE '%a';
+
+SELECT * FROM homework_32.employees WHERE department_id IN (50, 80) AND commission_pct IS NOT NULL;
+
+SELECT * FROM homework_32.employees WHERE salary BETWEEN 8000 AND 9000;
+
+SELECT employee_id, first_name, last_name,  replace(phone_number, '.', '-') AS formatted_phone FROM homework_32.employees;
+
+SELECT department_id, salary, COUNT(*) FROM homework_32.employees GROUP BY department_id, salary HAVING COUNT(*) > 1;
+SELECT * FROM homework_32.employees WHERE LENGTH(first_name) = (SELECT MAX(LENGTH(first_name)) FROM homework_32.employees);
+commit;
