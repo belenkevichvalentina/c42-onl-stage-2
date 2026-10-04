@@ -71,9 +71,7 @@ VALUES
     (50, 'Sarah', 'Bell', 'sarah.bell@mail.com', '011.44.1344.429268', '1996-02-04', 8000, 0.25, 80);
 commit;
 select * from homework_32.employees;
-SELECT table_schema, table_name
-FROM information_schema.tables
-WHERE table_name = 'employees';
+
 select * from homework_32.employees;
 
 SELECT * FROM homework_32.employees WHERE department_id = 50 AND salary > 4000;
