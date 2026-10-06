@@ -23,7 +23,7 @@ public class LoggingFilter extends HttpFilter {
         String path = httpServletRequest.getRequestURI();
 
         System.out.println("LoggingFilter  - " + localDateTime.format(formatter) + "path - " + path);
-        res.getWriter().println("Filter LoggingFilter <ANY> http://localhost:8080/<any>");
+        //res.getWriter().println("Filter LoggingFilter <ANY> http://localhost:8080/<any>");
         chain.doFilter(req, res);
     }
 }
