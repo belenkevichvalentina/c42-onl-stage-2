@@ -1,4 +1,4 @@
-package com.dz33.c42onl.homework_25;
+package com.exmple.c42onl.homework_25;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
