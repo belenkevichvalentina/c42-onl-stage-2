@@ -1,4 +1,4 @@
-package com.example.c42onl.homework_30.singleton;
+package com.dz33.c42onl.homework_30.singleton;
 
 public class Sun {
     private static Sun instance;

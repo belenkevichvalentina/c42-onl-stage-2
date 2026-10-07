@@ -1,7 +1,7 @@
-package com.example.c42onl.homework_28.servlet;
+package com.dz33.c42onl.homework_28.servlet;
 
-import com.example.c42onl.homework_28.model.Post;
-import com.example.c42onl.homework_28.storage.InMemoryPostStorage;
+import com.dz33.c42onl.homework_28.model.Post;
+import com.dz33.c42onl.homework_28.storage.InMemoryPostStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

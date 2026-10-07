@@ -1,7 +1,7 @@
-package com.example.c42onl.homework_28.servlet;
+package com.dz33.c42onl.homework_28.servlet;
 
-import com.example.c42onl.homework_28.model.Account;
-import com.example.c42onl.homework_28.storage.InMemoryAccountStorage;
+import com.dz33.c42onl.homework_28.model.Account;
+import com.dz33.c42onl.homework_28.storage.InMemoryAccountStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

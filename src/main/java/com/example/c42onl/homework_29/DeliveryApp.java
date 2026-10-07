@@ -1,11 +1,11 @@
-package com.example.c42onl.homework_29;
+package com.dz33.c42onl.homework_29;
 
-import com.example.c42onl.homework_29.model.Order;
-import com.example.c42onl.homework_29.service.DeliveryService;
-import com.example.c42onl.homework_29.service.Discount;
-import com.example.c42onl.homework_29.service.impl.discount.BlackFridayDiscount;
-import com.example.c42onl.homework_29.service.impl.staff.CarCourier;
-import com.example.c42onl.homework_29.service.impl.staff.Courier;
+import com.dz33.c42onl.homework_29.model.Order;
+import com.dz33.c42onl.homework_29.service.DeliveryService;
+import com.dz33.c42onl.homework_29.service.Discount;
+import com.dz33.c42onl.homework_29.service.impl.discount.BlackFridayDiscount;
+import com.dz33.c42onl.homework_29.service.impl.staff.CarCourier;
+import com.dz33.c42onl.homework_29.service.impl.staff.Courier;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

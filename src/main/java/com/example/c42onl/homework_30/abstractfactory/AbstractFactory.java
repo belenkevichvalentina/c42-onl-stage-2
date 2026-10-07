@@ -1,4 +1,4 @@
-package com.example.c42onl.homework_30.abstractfactory;
+package com.dz33.c42onl.homework_30.abstractfactory;
 
 public class AbstractFactory {
     public static void main(String[] args) {

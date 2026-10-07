@@ -1,4 +1,4 @@
-package com.example.c42onl.homework_30.factorymethod;
+package com.dz33.c42onl.homework_30.factorymethod;
 
 public class DeveloperFactory {
     public Developer createDeveloper(String language){
