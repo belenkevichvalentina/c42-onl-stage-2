@@ -1,4 +1,4 @@
-package com.example.c42onl.homework_30.builder;
+package com.dz33.c42onl.homework_30.builder;
 
 public class Builder {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.example.c42onl.homework_28.model;
+package com.dz33.c42onl.homework_28.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

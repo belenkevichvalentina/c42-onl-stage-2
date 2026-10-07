@@ -1,4 +1,4 @@
-package com.example.c42onl.homework_25;
+package com.dz33.c42onl.homework_25;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;

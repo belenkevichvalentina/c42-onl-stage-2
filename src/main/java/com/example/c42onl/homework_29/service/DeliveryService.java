@@ -1,8 +1,8 @@
-package com.example.c42onl.homework_29.service;
+package com.dz33.c42onl.homework_29.service;
 
-import com.example.c42onl.homework_29.service.impl.staff.BillCalculator;
-import com.example.c42onl.homework_29.service.impl.staff.Courier;
-import com.example.c42onl.homework_29.model.Order;
+import com.dz33.c42onl.homework_29.service.impl.staff.BillCalculator;
+import com.dz33.c42onl.homework_29.service.impl.staff.Courier;
+import com.dz33.c42onl.homework_29.model.Order;
 
 public class DeliveryService {
     private final Discount discountProcessor; //D

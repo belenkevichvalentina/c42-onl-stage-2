@@ -1,4 +1,4 @@
-package com.example.c42onl.homework_31.decorator;
+package com.dz33.c42onl.homework_31.decorator;
 
 public abstract class DeveloperDecorator implements Developer {
     public Developer developer;
