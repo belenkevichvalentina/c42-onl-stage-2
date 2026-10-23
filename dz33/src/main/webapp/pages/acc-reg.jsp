@@ -11,7 +11,7 @@
     <title>Registration</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}" method="post">
+<form action="${pageContext.request.contextPath}/user/reg" method="post">
     <input type="text" name="name" placeholder="Name">
     <input type="text" name="email" placeholder="Email">
     <input type="text" name="username" placeholder="Username">

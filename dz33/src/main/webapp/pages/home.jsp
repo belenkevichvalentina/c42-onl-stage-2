@@ -25,6 +25,7 @@
 <h3>CRUD:</h3>
 <%--<a href="/user/get?id=1">Найти пользователя (?id=1)</a><br>--%>
 <%--<a href="/user/delete?id=1">Удалить пользователя (?id=1)</a><br>--%>
+    <p><a href="${pageContext.request.contextPath}/user/list">Посмотреть всех пользователей</a></p>
     <form action="${pageContext.request.contextPath}/user/find" method="get" style="margin-bottom: 10px;">
         <input type="number" name="id" placeholder="ID" required>
         <button type="submit">Найти пользователя</button>
@@ -32,7 +33,7 @@
 
     <form action="${pageContext.request.contextPath}/user/delete" method="post">
         <input type="number" name="id" placeholder="ID" required>
-        <button type="submit" onclick="return confirm('Удалить?');">Удалить пользователя</button>
+        <button type="submit" onclick="return confirm('Удалить пользователя?');">Удалить пользователя</button>
     </form>
 </c:if>
 </body>

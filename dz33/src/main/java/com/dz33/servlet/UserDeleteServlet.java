@@ -44,7 +44,7 @@ public class UserDeleteServlet extends HttpServlet {
             resp.getWriter().println("<h1> Пользователь " + id + " удалён</h1>");
             resp.sendRedirect(req.getContextPath() + "/");
 
-        } catch (SQLException e) {
+        } catch (NumberFormatException e) {
             throw new RuntimeException("Неверный ID", e);
         }
 

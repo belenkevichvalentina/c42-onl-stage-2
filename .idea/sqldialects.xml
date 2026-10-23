@@ -2,6 +2,8 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/dz33/src/main/java/com/dz33/storage/JdbcAccountStorage.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/sql/home_work34JDBC.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/sql/script.sql" dialect="PostgreSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>
