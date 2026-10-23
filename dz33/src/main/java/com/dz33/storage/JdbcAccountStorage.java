@@ -13,19 +13,29 @@ public class JdbcAccountStorage {
     public void saveUser(User user){
         try {
             Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "root");
+            try {
+                connection.setAutoCommit(false);
+                PreparedStatement preparedStatement1 = connection.prepareStatement("INSERT INTO profiles VALUES (default, ?) RETURNING id");
+                preparedStatement1.setString(1, user.getProfile().getEmail());
+                ResultSet resultSet = preparedStatement1.executeQuery();
+                 resultSet.next();
+                long pId = resultSet.getLong(1);
+                PreparedStatement preparedStatement2 = connection.prepareStatement("INSERT INTO users VALUES (default, ?, ?, ?, ?)");
+                preparedStatement2.setString(1, user.getName());
+                preparedStatement2.setString(2, user.getUsername());
+                preparedStatement2.setString(3, user.getPassword());
+                preparedStatement2.setLong(4, pId);
+                preparedStatement2.execute();
+                connection.commit();
+            }        catch (SQLException e) {
+                connection.rollback();
+                throw e;
+            }
 
-            PreparedStatement preparedStatement1 = connection.prepareStatement("INSERT INTO profiles VALUES (default, ?) RETURNING id");
-            preparedStatement1.setString(1, user.getProfile().getEmail());
-            ResultSet resultSet = preparedStatement1.executeQuery();
-            resultSet.next();
-            long pId = resultSet.getLong(1);
-            PreparedStatement preparedStatement2 = connection.prepareStatement("INSERT INTO users VALUES (default, ?, ?, ?, ?)");
-            preparedStatement2.setString(1, user.getName());
-            preparedStatement2.setString(2, user.getUsername());
-            preparedStatement2.setString(3, user.getPassword());
-            preparedStatement2.setLong(4, pId);
-            preparedStatement2.execute();
-        } catch (SQLException e) {
+        }
+
+        catch (SQLException e) {
+
             throw new RuntimeException("Ошибка при транзакции сохранения пользователя",e);
         }
     }
@@ -33,17 +43,24 @@ public class JdbcAccountStorage {
     public void updateById (Long id, String newName, String newUsername, String newPassword, String email){
         try {
              Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "root");
-             try(PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name = ?, username = ?, password = ? WHERE id = ?");){
-                 preparedStatement.setString(1, newName);
-                 preparedStatement.setString(2, newUsername);
-                 preparedStatement.setString(3, newPassword);
-                 preparedStatement.setLong(4, id);
-                 preparedStatement.execute();
-             }
-            try (PreparedStatement ps = connection.prepareStatement("UPDATE profiles SET email = ? WHERE id = (SELECT profile_id FROM users WHERE id = ?)")) {
-                ps.setString(1, email);
-                ps.setLong(2, id);
-                ps.executeUpdate();
+            connection.setAutoCommit(false);
+            try {
+                try(PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name = ?, username = ?, password = ? WHERE id = ?")){
+                    preparedStatement.setString(1, newName);
+                    preparedStatement.setString(2, newUsername);
+                    preparedStatement.setString(3, newPassword);
+                    preparedStatement.setLong(4, id);
+                    preparedStatement.execute();
+                }
+                try (PreparedStatement ps = connection.prepareStatement("UPDATE profiles SET email = ? WHERE id = (SELECT profile_id FROM users WHERE id = ?)")) {
+                    ps.setString(1, email);
+                    ps.setLong(2, id);
+                    ps.executeUpdate();
+
+
+                }
+                connection.commit();
+
             } catch (SQLException e) {
                 connection.rollback();
                 throw e;
@@ -87,18 +104,20 @@ public class JdbcAccountStorage {
      public Optional<User> findByUsername(String username) {
          try {
              Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "root");
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT u.id, u.name, u.username, u.password, p.id, p.email FROM users u JOIN profiles p on p.id = u.profile_id WHERE username = ?");
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT u.id AS user_id, u.name, " +
+                     "u.username, u.password, p.id AS profile_id, p.email FROM users u " +
+                     "JOIN profiles p on p.id = u.profile_id WHERE username = ?");
              preparedStatement.setString(1, username);
              ResultSet resultSet = preparedStatement.executeQuery();
 
 
              if (resultSet.next()){
-                 long id = resultSet.getLong("id");
+                 long id = resultSet.getLong("user_id");
                  String name = resultSet.getString("name");
                  String uname = resultSet.getString("username");
                  String password = resultSet.getString("password");
 
-                 Long pId = resultSet.getLong("id");
+                 Long pId = resultSet.getLong("profile_id");
                  String pEmail = resultSet.getString("email");
 
                  Profile profile = new Profile(pId, pEmail);
@@ -109,7 +128,7 @@ public class JdbcAccountStorage {
              return Optional.empty();
 
          } catch (SQLException e) {
-             throw new RuntimeException(e);
+             throw new RuntimeException("Ошибка при поиске по username",e);
          }
      }
 
@@ -143,8 +162,10 @@ public class JdbcAccountStorage {
     }
 
 
-    public void deleteUserById(Long id) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "root");
+    public void deleteUserById(Long id)  {
+       try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "root")){
+           connection.setAutoCommit(false);
+           try {
         try(PreparedStatement preparedStatementProfile = connection.prepareStatement("DELETE FROM profiles WHERE id = (SELECT profile_id FROM users WHERE id = ?)")) {
 
                 preparedStatementProfile.setLong(1, id);
@@ -160,10 +181,18 @@ public class JdbcAccountStorage {
             preparedStatementUser.setLong(1, id);
 
             preparedStatementUser.executeUpdate();
-        } catch (SQLException e) {
-
-            throw new RuntimeException("Ошибка при удалении пользователя с ID: " + id, e);
         }
+        connection.commit();
+       }catch (SQLException e) {
+               connection.rollback();
+               throw e;
+           }
+
+
+       }catch (SQLException e) {
+
+           throw new RuntimeException("Ошибка при удалении пользователя с ID: " + id, e);
+       }
     }
 
 
